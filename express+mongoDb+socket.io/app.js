@@ -81,6 +81,7 @@ app.use(function(err, req, res, next) {
 
 server.listen(8081, function () {
   console.log('Server listening at port 8081');
+  console.log('Do not forget to initialize db: mongod --smallfiles -db-path ./data');
   console.log('http://first-sergiorgiraldo.c9users.io:8081');
 });
 
