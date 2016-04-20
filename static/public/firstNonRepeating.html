@@ -1,0 +1,49 @@
+<html>
+<head>
+  <script type="text/javascript">
+    function $(el){
+      return document.getElementById(el);
+    }
+
+    function count(){
+      var option = $("opt").value;
+      var word = $("txt").value;
+      if (option == "0") doIt(word.toUpperCase(),/[A-Z]/);
+      if (option == "1") doIt(word,/[A-Za-z]/);
+    }
+
+
+    function doIt(word,pattern){
+      var letters=[];
+      for (var i = 0; i < word.length; i++){
+        var letter = word.charAt(i);
+        
+        if (letters.indexOf(letter) != -1) continue; //letter already evaluated
+        
+        if (letter.match(pattern)){
+          letters.push(letter.toUpperCase());
+          if (i == word.length - 1 ||             //if thats the last letter 
+              word.indexOf(letter, i+1) == -1){   //letter not found
+            
+            alert(letter + " at position " + (i + 1));
+            return;
+            
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>You are given a string, find its first non-repeating character?</h2>
+  
+  <input type="text" id="txt" maxlength="2000" size="100" /> <br />
+  What to consider <br />
+  <select id="opt">
+    <option value="0">Case insensitive</option>
+    <option value="1">Lowercase and uppercase letters</option>
+  </select><br />
+  
+  <button onclick="count()">Do it</button>
+</body>
+</html

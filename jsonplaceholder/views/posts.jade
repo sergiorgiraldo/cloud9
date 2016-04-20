@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+
+    for res in result
+        p 
+            | #{res.title}
+            | <br />
+            a(href="http://www.example.com/#{res.id}") post no. #{res.id} from user #{res.userId}

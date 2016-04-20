@@ -1,0 +1,14 @@
+extends layout
+
+block myScripts
+    script(src='/javascripts/placeholder.js')
+
+block content
+  h1= title
+  p Welcome to #{title}
+  
+  h2 Result
+  
+  p   ID:: #{result.id}
+  p   TITLE:: #{result.title}
+  p   BODY:: #{result.body}

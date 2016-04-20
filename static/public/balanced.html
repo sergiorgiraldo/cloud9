@@ -1,0 +1,60 @@
+<script type="text/javascript">
+  function balancedParens(expr){
+    document.writeln(expr + "<br />");
+    var tokens={
+        "(":")", 
+        "[":"]", 
+        "{":"}" };
+  
+    var beginners=[];
+    
+    var finishers=[
+        ")",
+        "]",
+        "}"];
+    
+    for (var i=0;i<expr.length;i++){
+      var chr=expr[i];
+      
+      if (tokens[chr]){
+        beginners.Add(chr);
+      }
+      else if (finishers.Has(chr))
+      {
+        if (tokens[beginners.GetLast()] != chr){
+          return false;
+        }
+      }
+    }
+    
+    return beginners.length == 0;
+  }
+  
+  Array.prototype.Has=function(what){
+    return this.indexOf(what) != -1;
+    };
+  Array.prototype.Add=function(what){
+    return this.push(what);
+    };
+  Array.prototype.GetLast=function(what){
+    return this.pop();
+    };
+
+  function assert(what, expected){
+    if (what != expected){
+      throw new Error(what + " is different from " + expected);
+      alert("error!!");
+    }
+  }
+  
+  assert(balancedParens("("), false);
+  assert(balancedParens("()"), true);
+  assert(balancedParens(")("), false);
+  assert(balancedParens("(())"), true);
+  assert(balancedParens("[](){}"), true);
+  assert(balancedParens("[({})]"), true);
+  assert(balancedParens("[(]{)}"), false);
+  assert(balancedParens("var supYo  = { hey: dog() }"), true);
+  assert(balancedParens("var fiddle = function() { doggy.eat();"), false);
+
+</script>

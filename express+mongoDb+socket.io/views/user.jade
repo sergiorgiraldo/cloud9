@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    #nav
+        a(href="/") Back
+
+    h1 GET USER  #{title}
+
+    // Wrapper
+    #wrapper
+        // USER INFO
+        #userInfo
+            h2 User Info 
+            p
+                strong Name:
+                |   #{result.fullname}
+                br
+                strong Age:
+                |   #{result.age}
+                br
+                strong Gender:
+                |   #{result.gender}
+                br
+                strong Location:
+                |   #{result.location}
+        // /USER INFO
+
+
+
+    // /WRAPPER

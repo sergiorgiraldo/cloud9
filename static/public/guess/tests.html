@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Guess unit tests</title>
+  
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine.css">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine-html.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/boot.js"></script>
+  <script type="text/javascript" src="./guess.js"></script><!-- SUT -->
+  
+  <script type="text/javascript">
+    describe("generic tests", function(){
+      it( "register must initialize with 0 as low", function() {
+        var r = new Register();
+        expect(r.low).toBe(0);
+        });  
+
+      it( "register must initialize with 100 as high", function() {
+        var r = new Register();
+        expect(r.high).toBe(100);
+        });  
+
+      it("initial guess must multiply by 100 and sum 1 - random value", function(){
+        spyOn(Math, "random").and.callFake(function(o){
+          return 0.4;
+        });
+
+        expect(new guessInitial().guess()).toEqual(41);
+        expect(Math.random).toHaveBeenCalled();
+      });
+
+      it("initial guess must multiply by 100 and sum 1 - edge value 0", function(){
+        spyOn(Math, "random").and.callFake(function(o){
+          return 0;
+        });
+
+        expect(new guessInitial().guess()).toEqual(1);
+        expect(Math.random).toHaveBeenCalled();
+      });
+
+      it("initial guess must multiply by 100 and sum 1 - edge value 0.99", function(){
+        spyOn(Math, "random").and.callFake(function(o){
+          return 0.99;
+        });
+
+        expect(new guessInitial().guess()).toEqual(100);
+        expect(Math.random).toHaveBeenCalled();
+      });
+
+      it("guess high must update low register", function(){
+        register = new Register();
+        register.high = 11;
+        register.low = 12;
+        register.last = 13; 
+        new guessHigher().guess(); 
+        expect(register.low).toEqual(register.last);
+      });
+
+      it("guess high must be media from high and last", function(){
+        register = new Register();
+        register.high = 11;
+        register.low = 8;
+        register.last = 13; 
+        var nb = new guessHigher().guess(); 
+        expect(nb).toEqual((register.high + register.last)/2); 
+      });
+
+      it("guess low must update high register", function(){
+        register = new Register();
+        register.high = 31;
+        register.low = 32;
+        register.last = 33; 
+        new guessLower().guess(); 
+        expect(register.high).toEqual(register.last);
+      });
+
+      it("guess low must be media from low and last", function(){
+        register = new Register();
+        register.high = 8;
+        register.low = 11;
+        register.last = 13; 
+        var nb = new guessLower().guess(); 
+        expect(nb).toEqual((register.low + register.last)/2); 
+      });
+
+    });    
+  </script>
+</head>
+<body></body>
+</html>

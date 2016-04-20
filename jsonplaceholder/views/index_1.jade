@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  img(src="#{result.picture.large}")
+  
+  p I am  #{result.name.first} #{result.name.last}
+  p I live in #{result.location.city}/#{result.location.state} 
+  p My email is #{result.email}
