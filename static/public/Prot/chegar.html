@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
@@ -18,26 +19,29 @@
         <![endif]-->
 
         <div id="viewport">
-            <a class="btn btn-primary" style="padding:10px;" id="aMenu" href="#">
-            <i class="fa fa-bars" aria-hidden="true" title="Menu"></i>
-            <span class="sr-only">Menu</span>
-            </a>             
+            <div style="display:flex">
+                <a class="btn btn-primary" style="padding:10px;" id="aMenu" href="#">
+                <i class="fa fa-bars" aria-hidden="true" title="Menu"></i>
+                </a>             
+                <h2>Chegar ao seu destino</h2>
+            </div>
             <div id="dMenu" style="display:none;border:1px solid black;width:50%" >
                 <a href="chegar.html">Chegar ao destino</a><br/>
                 <a href="aguardar.html">Aguardar rodízio</a>   
             </div>
             
-            <p style="padding:10px;">
-            yada yada
-            </p>
+            <div style="padding:10px;display:flex">
+            <input type="text" id="local"/>
+            <button id="hist">Histórico</button>
+            <button id="rotas">Mostrar</button>
+            </div>
+            <div id="dHist" style="display:none;border:1px solid black;width:50%">
+                <a id="hist1">Av. Paulista</a><br/>
+                <a id="hist2">Rua Tutóia</a>
+            </div>
             
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />                       
+            <img id="map" src="img/map.gif" width ="368" height="430" style="cursor: pointer;"/>
+            
             <p style="padding:10px;">
             <i id="footer">Giraldo 2015 - 2016 <b>&copy;</b> 2 years delivering goodies <img src="img/smile.png" /></i>
             </p>
@@ -45,6 +49,7 @@
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/vendor/jquery-ui.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
         
@@ -55,7 +60,58 @@
                 $("#dMenu").toggle();    
             });
             
+            $("#hist1").on("click", function(){
+                $("#local").val(this.innerText);
+                $("#dHist").toggle();
+            });
+            
+            $("#hist2").on("click", function(){
+                $("#local").val(this.innerText);
+                $("#dHist").toggle();
+            });
+            
+            $("#hist").on("click", function(event){
+                event.preventDefault();
+                $("#dHist").toggle();    
+            });
+            
+            $("#rotas").on("click", function(event){
+                document.location.href="rotas.html?" + $("#local").val();
+            });
+
+            $("#map").on("click", function(){
+                document.location.href="rotas.html?click no mapa";
+            });
+
+            $(function() {
+                var availableTags = [
+                  "Av. Paulista",
+                  "Av. Angélica",
+                  "Pça.Silvio Romero",
+                  "Rua Afonso Celso",
+                  "Rua Luís Góes",
+                  "Rua Pio XI",
+                  "Av. Cerro Corá",
+                  "Av. Jabaquara",
+                  "Rua Albert Einstein",
+                  "Pça. Xiaoping",
+                  "Alameda Glete",
+                  "Pça da Sé",
+                  "Rua Digo Moreira",
+                  "Rua Tutóia",
+                  "Rua França Pinto",
+                  "Rua Voluntários da Pátria",
+                  "Rua Québec",
+                  "Rua Girassol",
+                  "Beco do Batman"
+                ];
+                
+                $( "#local" ).autocomplete({
+                  source: availableTags
+                });
+            });
         });
         
     </script>        
 </html>
+

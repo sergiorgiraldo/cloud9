@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>FUJA DO RODÍZIO :: CHEGAR AO DESTINO</title>
+        <title>FUJA DO RODÍZIO :: ROTAS</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=368, width=600, initial-scale=1">
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
@@ -18,26 +19,27 @@
         <![endif]-->
 
         <div id="viewport">
-            <a class="btn btn-primary" style="padding:10px;" id="aMenu" href="#">
-            <i class="fa fa-bars" aria-hidden="true" title="Menu"></i>
-            <span class="sr-only">Menu</span>
-            </a>             
+            <div style="display:flex">
+                <a class="btn btn-primary" style="padding:10px;" id="aMenu" href="#">
+                <i class="fa fa-bars" aria-hidden="true" title="Menu"></i>
+                </a>             
+                <h2>Escolha sua rota</h2>
+            </div>
             <div id="dMenu" style="display:none;border:1px solid black;width:50%" >
                 <a href="chegar.html">Chegar ao destino</a><br/>
                 <a href="aguardar.html">Aguardar rodízio</a>   
             </div>
             
-            <p style="padding:10px;">
-            yada yada
-            </p>
+            <div id="dRotas">
+                <h3 id="local"></h3>
+                &nbsp;&nbsp;<a id="r1" href="caminho.html?1">Pelo Ibirapuera, tempo estimado 6 min.</a><br/>
+                &nbsp;&nbsp;<a id="r2" href="caminho.html?2">Pela Rua Vergueiro, tempo estimado 6 min.</a><br/>
+                &nbsp;&nbsp;<a id="r3" href="caminho.html?3">Túnel da JK, tempo estimado 8 min</a><br/>
+                &nbsp;&nbsp;<a id="r4" href="caminho.html?4">Centro da Cidade, tempo estimado 13 min </a><br/>
+            </div>
+            <br />
+            <img id="map" src="img/map.gif" width ="368" height="305" style="cursor: pointer;"/>
             
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />
-            <br /><br />                       
             <p style="padding:10px;">
             <i id="footer">Giraldo 2015 - 2016 <b>&copy;</b> 2 years delivering goodies <img src="img/smile.png" /></i>
             </p>
@@ -46,6 +48,7 @@
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="js/vendor/jquery-ui.min.js"></script>
+        <script src="js/vendor/underscore-min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
         
@@ -56,7 +59,15 @@
                 $("#dMenu").toggle();    
             });
             
+            $("#map").on("click", function(){
+                document.location.href="rotas.html?click no mapa";
+            });
+            
+            $("#local").html("Rotas para " + decodeURIComponent(window.location.search.substring(1)));
+            
+            $("#rotas").on("click", function(event){
+                document.location.href="rotas.html?" + $("#local").val();
+            });
         });
-        
     </script>        
 </html>
